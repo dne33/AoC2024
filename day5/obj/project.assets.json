@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/daniel/AoC2024/day2 copy 3/app.csproj",
+      "projectUniqueName": "/home/daniel/AoC2024/day5/app.csproj",
       "projectName": "app",
-      "projectPath": "/home/daniel/AoC2024/day2 copy 3/app.csproj",
+      "projectPath": "/home/daniel/AoC2024/day5/app.csproj",
       "packagesPath": "/home/daniel/.nuget/packages/",
-      "outputPath": "/home/daniel/AoC2024/day2 copy 3/obj/",
+      "outputPath": "/home/daniel/AoC2024/day5/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/daniel/.nuget/NuGet/NuGet.Config"
