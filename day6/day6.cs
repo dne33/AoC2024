@@ -142,13 +142,65 @@ static int part2() {
     using (StreamReader reader = new StreamReader("input.txt"))
         {
             string line;
-            
             int count = 0;
+            int lines = 0;
+            char hash = '#';
+            char dot = '.';
+            List<char> agent = new List<char>() {'^', '>', 'v', '<' };
+            (int, int) agent_pos = (0,0);
+            int direction = 0;
+            int amt_cols = 0;
+            List<(int, int)> blockers = new List<(int, int)>(); 
+            HashSet<(int, int)> crossed = new HashSet<(int, int)>(); 
+
             while ((line = reader.ReadLine()) != null)
             {
-                
+                char[] charList = line.ToCharArray();
+                int col = 0;
+                foreach (char item in charList)
+                {
+                   if (item != dot) {
+                    if (item == hash) {
+                        blockers.Add((lines, col));
+                    } else {
+                        agent_pos = ((lines, col));
+                        direction = agent.IndexOf(item);
+                    }
+                   }  
+                   col++;
+                }
+                amt_cols = col;
+                lines++;
             }
-            return count;
+            foreach (var blocker in blockers)
+            {
+                Console.WriteLine($"Blocker: ({blocker.Item1}, {blocker.Item2})");
+            }
+            HashSet<(int, int)> unique_stops = new HashSet<(int, int)>();
+            List<(int, int)> all_stops = new List<(int, int)>();
+        
+            while (true) {
+                
+                all_stops = get_travelled(direction, agent_pos, blockers, lines, amt_cols);
+                foreach (var blocker in all_stops)
+                {
+                    Console.WriteLine($"filteredList: ({blocker.Item1}, {blocker.Item2})");
+                }
+                agent_pos = all_stops[all_stops.Count - 1];
+                
+                direction = (direction + 1) % 4;
+                Console.WriteLine($"pos: ({agent_pos.Item1}, {agent_pos.Item2})");
+                Console.WriteLine(direction);
+                unique_stops.UnionWith(all_stops); 
+                if (agent_pos.Item1 == 0 || agent_pos.Item2 == 0 || agent_pos.Item1 == lines-1 || agent_pos.Item2 == amt_cols-1) {
+                    break;
+                }
+            }
+            foreach (var blocker in unique_stops)
+                {
+                    Console.WriteLine($"Unique Stops: (| {blocker.Item1}, - {blocker.Item2})");
+                }
+            return unique_stops.Count;
         }
     return 0;
 }
